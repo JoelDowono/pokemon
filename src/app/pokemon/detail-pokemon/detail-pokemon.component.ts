@@ -1,6 +1,6 @@
+import { PokemonService } from './../pokemon.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { POKEMONS } from '../mock-pokemon-list';
 import { Pokemon } from '../pokemon';
 
 @Component({
@@ -13,14 +13,13 @@ export class DetailPokemonComponent implements OnInit {
   pokemonList: Pokemon[];
   pokemon: Pokemon|undefined;
 
-  constructor(private route: ActivatedRoute, private router: Router) { } //activatedRoute est le service qui permet de récupérer les paramètres dans l'url
+  constructor(private route: ActivatedRoute, private router: Router, private pokemonservice: PokemonService) { } //activatedRoute est le service qui permet de récupérer les paramètres dans l'url
 
   ngOnInit(): void {
-    this.pokemonList = POKEMONS;
     const pokemonId: string|null = this.route.snapshot.paramMap.get('id') //on recupère l'id contenu dans l'url
 
     if(pokemonId) { //si l'identifiant est trouvé dans l'url
-      this.pokemon = this.pokemonList.find(pokemon => pokemon.id == +pokemonId)
+      this.pokemon = this.pokemonservice.getPokemonById(+pokemonId); //+ transforme une chaîne de caractère en un nombre
     }
   }
 
