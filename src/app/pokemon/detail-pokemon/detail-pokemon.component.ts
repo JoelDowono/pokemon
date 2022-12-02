@@ -19,8 +19,12 @@ export class DetailPokemonComponent implements OnInit {
     const pokemonId: string|null = this.route.snapshot.paramMap.get('id') //on recupère l'id contenu dans l'url
 
     if(pokemonId) { //si l'identifiant est trouvé dans l'url
-      this.pokemon = this.pokemonservice.getPokemonById(+pokemonId); //+ transforme une chaîne de caractère en un nombre
+      this.pokemonservice.getPokemonById(+pokemonId).subscribe(pokemon => this.pokemon = pokemon);
     }
+  }
+
+  deletePokemon(pokemon: Pokemon) {
+    this.pokemonservice.deletePokemonById(pokemon.id).subscribe(() => this.goToPokkemonList());
   }
 
   goToPokkemonList() {
