@@ -1,0 +1,7 @@
+.ng-valid[required] { /*champs valides*/
+  border-left: 5px solid #42A948;
+}
+
+.ng-invalid:not(form) { /*champs invalides sans l'enssemble du formulaire*/
+  border-left: 5px solid #A94442;
+}
